@@ -26,7 +26,12 @@ class UserModelForm(forms.ModelForm):
         model = CustomUser
         fields = "__all__"
 
-    def clean_name(self):
+    def clean_username(self):
         _username = self.cleaned_data["username"]
         if CustomUser.objects.filter(username=_username).exists():
             raise ValidationError("username already exists")
+
+    def clean_phone(self):
+        _phone = self.cleaned_data["phone"]
+        if CustomUser.objects.filter(phone=_phone).exists():
+            raise ValidationError("account with this phone numner already exists")
