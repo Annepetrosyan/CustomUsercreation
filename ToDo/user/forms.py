@@ -15,13 +15,18 @@ class CustomUserForm(models.Model):
     is_active = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def clean_name(self):
-        _username = self.cleaned_data["username"]
-        if CustomUser.objects.filter(username=_username).exists():
-            raise ValidationError("username already exists")
+    # def clean_name(self):
+    #     _username = self.cleaned.data["username"]
+    #     if CustomUser.objects.filter(username=_username).exists():
+    #         raise ValidationError("username already exists")
 
 
 class UserModelForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = "__all__"
+
+    def clean_name(self):
+        _username = self.cleaned_data["username"]
+        if CustomUser.objects.filter(username=_username).exists():
+            raise ValidationError("username already exists")
