@@ -17,8 +17,8 @@ class CustomUserForm(models.Model):
 
     def clean_name(self):
         _username = self.cleaned_data["username"]
-        if Task.objects.filter(username=_username).exists():
-            raise ValidetionError("username already exists")
+        if CustomUser.objects.filter(username=_username).exists():
+            raise ValidationError("username already exists")
 
 
 class UserModelForm(forms.ModelForm):
